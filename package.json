@@ -1,0 +1,91 @@
+{
+  "name": "claude-code",
+  "version": "26.05.22",
+  "description": "Claude Code integration for Pulsar editor",
+  "main": "./lib/main",
+  "license": "MIT",
+  "repository": "https://github.com/BeanGreen247/claude-code-pulsar",
+  "keywords": ["claude", "ai", "anthropic", "claude-code", "pulsar"],
+  "engines": {
+    "atom": ">=1.100.0 <2.0.0"
+  },
+  "activationHooks": [
+    "core:loaded-shell-environment"
+  ],
+  "activationCommands": {
+    "atom-workspace": [
+      "claude-code:open",
+      "claude-code:toggle",
+      "claude-code:new-chat",
+      "claude-code:open-latest"
+    ]
+  },
+  "providedServices": {
+    "claude-code": {
+      "versions": {
+        "1.0.0": "provideClaudeCode"
+      }
+    }
+  },
+  "consumedServices": {
+    "tree-view": {
+      "versions": {
+        "0.1.0": "consumeTreeView"
+      }
+    }
+  },
+  "dependencies": {
+    "marked": "^9.0.0"
+  },
+  "configSchema": {
+    "cliPath": {
+      "type": "string",
+      "default": "claude",
+      "description": "Path to the Claude Code CLI executable",
+      "order": 1
+    },
+    "panelPosition": {
+      "type": "string",
+      "default": "right",
+      "enum": ["left", "right", "bottom"],
+      "description": "Panel dock position",
+      "order": 2
+    },
+    "model": {
+      "type": "string",
+      "default": "",
+      "description": "Model override (leave empty for default, e.g. claude-opus-4-5)",
+      "order": 3
+    },
+    "permissionMode": {
+      "type": "string",
+      "default": "acceptEdits",
+      "enum": ["acceptEdits", "bypassPermissions", "default"],
+      "enumDescription": [
+        "Auto-accept file edits, ask for shell commands",
+        "Auto-accept everything (use with caution)",
+        "Deny all writes and shell commands (read-only)"
+      ],
+      "description": "Default permission mode for tool use",
+      "order": 4
+    },
+    "verbose": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show verbose CLI output in the panel",
+      "order": 5
+    },
+    "theme": {
+      "type": "string",
+      "default": "auto",
+      "enum": ["auto", "dark", "light"],
+      "enumDescriptions": [
+        "Inherit from Pulsar's active UI theme",
+        "Force One Dark colors",
+        "Force One Light colors"
+      ],
+      "description": "Panel color theme (auto follows Pulsar's UI theme, dark/light match Pulsar's One Dark / One Light defaults)",
+      "order": 6
+    }
+  }
+}

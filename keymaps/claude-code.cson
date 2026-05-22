@@ -1,0 +1,14 @@
+'atom-workspace':
+  'alt-c': 'claude-code:toggle'
+  'alt-shift-c': 'claude-code:history'
+  'alt-n': 'claude-code:new-chat'
+
+'atom-text-editor:not([mini])':
+  'ctrl-shift-a': 'claude-code:attach-selection'
+
+'.claude-code-input-editor':
+  'shift-enter': 'claude-code:new-line'
+  'escape': 'core:cancel'
+  'ctrl-1': 'claude-code:mode-default'
+  'ctrl-2': 'claude-code:mode-accept-edits'
+  'ctrl-3': 'claude-code:mode-bypass'

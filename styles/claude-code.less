@@ -1,0 +1,1057 @@
+// Claude Code for Pulsar — main styles
+
+// ── Static constants ────────────────────────────────────────────────────────
+@cc-code-font: "SFMono-Regular", "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
+@cc-radius: 6px;
+
+// ── Theme tokens (CSS custom properties) ────────────────────────────────────
+// Defined on .claude-code-panel so they cascade to all children.
+// Default values come from Pulsar's active UI theme (auto mode).
+// .cc-theme-dark and .cc-theme-light override them for forced palettes.
+
+.claude-code-panel {
+  --cc-bg:             @base-background-color;
+  --cc-border:         @base-border-color;
+  --cc-text:           @text-color;
+  --cc-subtle:         @text-color-subtle;
+  --cc-hl:             @background-color-highlight;
+  --cc-text-hi:        @text-color-highlight;
+  --cc-accent:         @button-background-color-selected;
+  --cc-accent-text:    contrast(@button-background-color-selected, #1a1a1a, white);
+  --cc-user-bg:        mix(@button-background-color-selected, @base-background-color, 10%);
+  --cc-btn-bg:         @button-background-color;
+  --cc-btn-hover:      @button-background-color-hover;
+  --cc-syn-bg:         @syntax-background-color;
+  --cc-syn-text:       @syntax-text-color;
+  --cc-info:           @text-color-info;
+  --cc-success:        @text-color-success;
+  --cc-warning:        @text-color-warning;
+  --cc-error:          @text-color-error;
+  --cc-success-tint:   mix(@background-color-success, @base-background-color, 20%);
+  --cc-success-tint2:  mix(@background-color-success, @base-background-color, 35%);
+  --cc-warning-tint:   mix(@background-color-warning, @base-background-color, 8%);
+  --cc-error-tint:     mix(@background-color-error, @base-background-color, 20%);
+  --cc-error-tint2:    mix(@background-color-error, @base-background-color, 35%);
+  --cc-warning-border: @background-color-warning;
+  --cc-success-border: @background-color-success;
+  --cc-error-border:   @background-color-error;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--cc-bg);
+  color: var(--cc-text);
+  font-family: @font-family;
+  font-size: @font-size;
+}
+
+// ── One Dark (Pulsar default dark theme) ────────────────────────────────────
+
+.claude-code-panel.cc-theme-dark {
+  --cc-bg:             #282c34;
+  --cc-border:         #181a1f;
+  --cc-text:           #abb2bf;
+  --cc-subtle:         #5c6370;
+  --cc-hl:             #2c313c;
+  --cc-text-hi:        #d7dae0;
+  --cc-accent:         #528bff;
+  --cc-accent-text:    #fff;
+  --cc-user-bg:        #2a2f45;
+  --cc-btn-bg:         #404754;
+  --cc-btn-hover:      #4d5363;
+  --cc-syn-bg:         #21252b;
+  --cc-syn-text:       #abb2bf;
+  --cc-info:           #61afef;
+  --cc-success:        #98c379;
+  --cc-warning:        #e5c07b;
+  --cc-error:          #e06c75;
+  --cc-success-tint:   #1e3a1e;
+  --cc-success-tint2:  #26492a;
+  --cc-warning-tint:   #2d2510;
+  --cc-error-tint:     #3a1e1e;
+  --cc-error-tint2:    #4a2424;
+  --cc-warning-border: #e5c07b;
+  --cc-success-border: #98c379;
+  --cc-error-border:   #e06c75;
+}
+
+// ── One Light (Pulsar default light theme) ──────────────────────────────────
+
+.claude-code-panel.cc-theme-light {
+  --cc-bg:             #fafafa;
+  --cc-border:         #d3d3d3;
+  --cc-text:           #383a42;
+  --cc-subtle:         #a0a1a7;
+  --cc-hl:             #eaeaea;
+  --cc-text-hi:        #090a0b;
+  --cc-accent:         #4078f2;
+  --cc-accent-text:    #fff;
+  --cc-user-bg:        #e8eeff;
+  --cc-btn-bg:         #dadada;
+  --cc-btn-hover:      #cacaca;
+  --cc-syn-bg:         #f0f0f0;
+  --cc-syn-text:       #383a42;
+  --cc-info:           #4078f2;
+  --cc-success:        #50a14f;
+  --cc-warning:        #c18401;
+  --cc-error:          #e45649;
+  --cc-success-tint:   #d8ead8;
+  --cc-success-tint2:  #bcdabc;
+  --cc-warning-tint:   #fdf0d5;
+  --cc-error-tint:     #f8dada;
+  --cc-error-tint2:    #f0c4c4;
+  --cc-warning-border: #c18401;
+  --cc-success-border: #50a14f;
+  --cc-error-border:   #e45649;
+}
+
+// ── Tab icon override ────────────────────────────────────────────────────────
+// Replaces the missing octicon for our custom 'claude-code-icon' name
+// with the ✦ four-pointed star used by Claude Code in terminal output.
+
+.tab .icon.icon-claude-code-icon::before,
+.icon-claude-code-icon::before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  vertical-align: middle;
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+
+.claude-code-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--cc-border);
+  flex-shrink: 0;
+}
+
+.claude-code-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--cc-text-hi);
+}
+
+.claude-logo {
+  color: var(--cc-accent);
+  flex-shrink: 0;
+}
+
+.claude-code-header-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+// ── Mode bar ─────────────────────────────────────────────────────────────────
+
+.claude-code-modebar {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--cc-border);
+  flex-shrink: 0;
+  background: var(--cc-hl);
+}
+
+.claude-mode-btn {
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--cc-subtle);
+  cursor: pointer;
+  transition: all 0.1s;
+
+  &:hover {
+    background: var(--cc-hl);
+    color: var(--cc-text);
+  }
+
+  &.active {
+    background: var(--cc-accent);
+    color: var(--cc-accent-text);
+    border-color: var(--cc-accent);
+  }
+}
+
+// Research button sits apart from the permission buttons with a small gap
+.cc-research-btn {
+  margin-left: 6px;
+  border-color: var(--cc-border);
+
+  &.active {
+    background: var(--cc-info);
+    color: white;
+    border-color: var(--cc-info);
+  }
+}
+
+// ── Messages ─────────────────────────────────────────────────────────────────
+
+.claude-code-messages-wrap {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 8px 0;
+}
+
+.claude-code-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 4px;
+}
+
+// ── Welcome screen ───────────────────────────────────────────────────────────
+
+.claude-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--cc-subtle);
+  text-align: center;
+  gap: 8px;
+
+  p { margin: 0; }
+
+  .claude-welcome-hint {
+    font-size: 11px;
+    opacity: 0.7;
+    kbd {
+      font-family: @cc-code-font;
+      background: var(--cc-hl);
+      border: 1px solid var(--cc-border);
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: 10px;
+    }
+  }
+}
+
+.claude-welcome-icon {
+  color: var(--cc-accent);
+  margin-bottom: 4px;
+}
+
+// ── Session info ─────────────────────────────────────────────────────────────
+
+.claude-session-info {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  padding: 4px 12px;
+  opacity: 0.6;
+}
+
+// ── Message bubbles ──────────────────────────────────────────────────────────
+
+.claude-msg {
+  padding: 10px 12px;
+  border-radius: @cc-radius;
+  margin: 2px 4px;
+  font-size: @font-size;
+  line-height: 1.55;
+}
+
+.claude-msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.claude-msg-role {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cc-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.claude-msg-role-assistant {
+  color: var(--cc-text-hi);
+}
+
+.claude-msg-time {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  opacity: 0.6;
+}
+
+.claude-msg-user {
+  background: var(--cc-user-bg);
+
+  .claude-msg-body {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+.claude-msg-assistant {
+  background: var(--cc-bg);
+}
+
+.claude-msg-system {
+  padding: 4px 12px;
+  margin: 2px 4px;
+  font-size: 11px;
+  color: var(--cc-subtle);
+  border-left: 2px solid var(--cc-border);
+
+  &.claude-msg-system-error {
+    color: var(--cc-error);
+    border-left-color: var(--cc-error);
+  }
+}
+
+// ── Streaming indicator ──────────────────────────────────────────────────────
+
+.claude-streaming-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cc-accent);
+  animation: cc-pulse 1s infinite;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+@keyframes cc-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+// Standalone thinking row shown between user message and first assistant content
+.cc-thinking-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+// Thinking dots shown immediately while waiting for Claude's first token
+.cc-thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+
+  span {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--cc-accent);
+    opacity: 0.3;
+    animation: cc-thinking-bounce 1.2s infinite ease-in-out;
+
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.2s; }
+    &:nth-child(3) { animation-delay: 0.4s; }
+  }
+}
+
+@keyframes cc-thinking-bounce {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1.1); }
+}
+
+// ── Markdown content ─────────────────────────────────────────────────────────
+
+.claude-msg-text {
+  p { margin: 0 0 6px; &:last-child { margin-bottom: 0; } }
+  ul, ol { margin: 4px 0 6px 20px; padding: 0; }
+  li { margin: 2px 0; }
+  h1, h2, h3, h4, h5, h6 {
+    margin: 8px 0 4px;
+    font-weight: 600;
+    color: var(--cc-text-hi);
+  }
+  blockquote {
+    margin: 4px 0;
+    padding: 4px 10px;
+    border-left: 3px solid var(--cc-border);
+    color: var(--cc-subtle);
+  }
+  a { color: var(--cc-info); }
+  hr { border: none; border-top: 1px solid var(--cc-border); margin: 8px 0; }
+  table {
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 6px 0;
+    td, th { border: 1px solid var(--cc-border); padding: 4px 8px; }
+    th { background: var(--cc-hl); font-weight: 600; }
+  }
+}
+
+// ── Inline code ──────────────────────────────────────────────────────────────
+
+.claude-inline-code {
+  font-family: @cc-code-font;
+  font-size: 0.9em;
+  background: var(--cc-hl);
+  border: 1px solid var(--cc-border);
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
+// ── Code blocks ──────────────────────────────────────────────────────────────
+
+.claude-code-block {
+  margin: 6px 0;
+  border: 1px solid var(--cc-border);
+  border-radius: @cc-radius;
+  overflow: hidden;
+  background: var(--cc-syn-bg);
+
+  .claude-code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+    background: var(--cc-hl);
+    border-bottom: 1px solid var(--cc-border);
+  }
+
+  .claude-code-lang {
+    font-size: 10px;
+    font-family: @cc-code-font;
+    color: var(--cc-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .claude-copy-btn {
+    font-size: 10px;
+    padding: 1px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--cc-border);
+    background: none;
+    color: var(--cc-subtle);
+    cursor: pointer;
+    &:hover { background: var(--cc-hl); color: var(--cc-text); }
+  }
+
+  pre {
+    margin: 0;
+    padding: 10px 12px;
+    overflow-x: auto;
+    background: var(--cc-syn-bg);
+
+    code {
+      font-family: @cc-code-font;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--cc-syn-text);
+    }
+  }
+}
+
+// ── Thinking blocks ──────────────────────────────────────────────────────────
+
+.claude-thinking {
+  margin: 4px 0;
+  border: 1px dashed var(--cc-border);
+  border-radius: @cc-radius;
+  font-size: 12px;
+  color: var(--cc-subtle);
+
+  summary {
+    padding: 6px 10px;
+    cursor: pointer;
+    list-style: none;
+    font-style: italic;
+    &::-webkit-details-marker { display: none; }
+    &::before { content: '▶ '; font-size: 9px; }
+  }
+
+  &[open] summary::before { content: '▼ '; }
+
+  .claude-thinking-body {
+    padding: 8px 10px;
+    white-space: pre-wrap;
+    font-family: @cc-code-font;
+    font-size: 11px;
+    border-top: 1px dashed var(--cc-border);
+  }
+}
+
+// ── Tool use blocks ──────────────────────────────────────────────────────────
+
+.claude-tool-use {
+  margin: 4px 0;
+  border: 1px solid var(--cc-border);
+  border-radius: @cc-radius;
+  font-size: 12px;
+  overflow: hidden;
+
+  .claude-tool-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    background: var(--cc-hl);
+    list-style: none;
+    &::-webkit-details-marker { display: none; }
+  }
+
+  .claude-tool-icon { font-size: 13px; }
+
+  .claude-tool-name {
+    font-family: @cc-code-font;
+    font-weight: 600;
+    color: var(--cc-text-hi);
+    flex: 1;
+  }
+
+  .claude-tool-status {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 8px;
+
+    &.claude-tool-status-running {
+      background: var(--cc-warning-tint);
+      color: var(--cc-warning);
+    }
+    &.claude-tool-status-done {
+      background: var(--cc-success-tint);
+      color: var(--cc-success);
+    }
+    &.claude-tool-status-error {
+      background: var(--cc-error-tint);
+      color: var(--cc-error);
+    }
+  }
+
+  .claude-tool-body {
+    padding: 8px 10px;
+    border-top: 1px solid var(--cc-border);
+  }
+
+  .claude-tool-cmd code,
+  .claude-tool-path {
+    font-family: @cc-code-font;
+    font-size: 11px;
+    color: var(--cc-text-hi);
+    word-break: break-all;
+  }
+
+  .claude-tool-diff {
+    font-family: @cc-code-font;
+    font-size: 11px;
+    white-space: pre-wrap;
+    color: var(--cc-subtle);
+    margin-top: 4px;
+  }
+
+  .claude-tool-summary {
+    font-family: @cc-code-font;
+    font-size: 11px;
+    color: var(--cc-subtle);
+    word-break: break-all;
+  }
+
+  .claude-tool-result-ok {
+    font-family: @cc-code-font;
+    font-size: 11px;
+    color: var(--cc-subtle);
+    white-space: pre-wrap;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--cc-border);
+  }
+
+  .claude-tool-result-error {
+    font-family: @cc-code-font;
+    font-size: 11px;
+    color: var(--cc-error);
+    white-space: pre-wrap;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--cc-border);
+  }
+}
+
+// ── Permission prompt ────────────────────────────────────────────────────────
+
+.claude-permission-prompt {
+  margin: 8px 4px;
+  border: 1px solid var(--cc-warning-border);
+  border-radius: @cc-radius;
+  background: var(--cc-warning-tint);
+  padding: 12px;
+
+  .claude-permission-title {
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: var(--cc-warning);
+  }
+
+  .claude-permission-tool {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: @cc-code-font;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .claude-permission-input {
+    font-family: @cc-code-font;
+    font-size: 11px;
+    background: var(--cc-hl);
+    border: 1px solid var(--cc-border);
+    border-radius: 4px;
+    padding: 6px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 120px;
+    overflow-y: auto;
+    color: var(--cc-subtle);
+    margin-bottom: 10px;
+  }
+
+  .claude-permission-buttons {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+// ── Usage line ───────────────────────────────────────────────────────────────
+
+.claude-usage {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  text-align: right;
+  padding: 2px 12px 8px;
+  opacity: 0.7;
+  font-family: @cc-code-font;
+
+  .cc-usage-label {
+    opacity: 0.6;
+  }
+
+  .cc-usage-val {
+    color: var(--cc-text);
+    font-weight: 600;
+  }
+
+  .cc-usage-sep {
+    opacity: 0.4;
+  }
+
+  .cc-usage-cost {
+    color: var(--cc-accent);
+    font-weight: 600;
+  }
+}
+
+// ── Usage strip (persistent bars above input) ────────────────────────────────
+
+.cc-usage-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px 12px 6px;
+  border-top: 1px solid var(--cc-border);
+  flex-shrink: 0;
+  background: var(--cc-hl);
+}
+
+.cc-strip-loading {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  opacity: 0.6;
+}
+
+.cc-strip-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.cc-strip-label {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.cc-strip-track {
+  flex: 1;
+  height: 4px;
+  background: var(--cc-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cc-strip-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--cc-accent);
+  transition: width 0.4s ease;
+
+  &.cc-strip-fill-warn   { background: var(--cc-warning); }
+  &.cc-strip-fill-danger { background: var(--cc-error); }
+}
+
+.cc-strip-meta {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--cc-text-hi);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+
+  &.cc-strip-pct-warn   { color: var(--cc-warning); }
+  &.cc-strip-pct-danger { color: var(--cc-error); }
+}
+
+.cc-strip-reset {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  opacity: 0.7;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ── Attachments tray ─────────────────────────────────────────────────────────
+
+.claude-code-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 5px 10px;
+  border-top: 1px solid var(--cc-border);
+  flex-shrink: 0;
+  background: var(--cc-hl);
+}
+
+.claude-attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-family: @cc-code-font;
+  padding: 2px 8px;
+  background: var(--cc-btn-bg);
+  border: 1px solid var(--cc-border);
+  border-radius: 10px;
+  color: var(--cc-text);
+
+  .claude-attachment-remove {
+    cursor: pointer;
+    color: var(--cc-subtle);
+    font-size: 13px;
+    line-height: 1;
+    &:hover { color: var(--cc-error); }
+  }
+}
+
+.cc-attach-thumb {
+  height: 24px;
+  width: auto;
+  max-width: 60px;
+  border-radius: 3px;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+// ── Input area ───────────────────────────────────────────────────────────────
+
+.claude-code-input-wrap {
+  border-top: 1px solid var(--cc-border);
+  flex-shrink: 0;
+  background: var(--cc-bg);
+}
+
+// Input row — plain textarea, grows with content
+.cc-input-row {
+  border-top: 1px solid var(--cc-border);
+}
+
+textarea.claude-code-input-editor {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 72px;
+  max-height: 200px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 0;
+  resize: none;
+  outline: none;
+  background: var(--cc-bg);
+  color: var(--cc-text);
+  font-family: @font-family;
+  font-size: @font-size;
+  line-height: 1.5;
+  overflow-y: auto;
+}
+
+// Full-width send bar below the textarea
+.cc-send-bar {
+  border-top: 1px solid var(--cc-border);
+  background: var(--cc-bg);
+}
+
+.cc-send-btn {
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  border: none;
+  background: var(--cc-accent);
+  color: var(--cc-accent-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.15s, background 0.15s;
+
+  &:hover:not(:disabled) { opacity: 1; }
+  &:active:not(:disabled) { opacity: 0.7; }
+
+  &:disabled {
+    background: var(--cc-hl);
+    color: var(--cc-subtle);
+    cursor: default;
+    opacity: 1;
+  }
+}
+
+// Attach bar: small buttons for file / active / selection / image
+.cc-attach-bar {
+  display: flex;
+  gap: 4px;
+  padding: 4px 10px 6px;
+  background: var(--cc-bg);
+}
+
+.cc-attach-btn {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--cc-border);
+  background: none;
+  color: var(--cc-subtle);
+  cursor: pointer;
+  transition: all 0.1s;
+
+  &:hover {
+    background: var(--cc-hl);
+    color: var(--cc-text);
+  }
+}
+
+// ── Buttons ──────────────────────────────────────────────────────────────────
+
+.claude-btn {
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--cc-border);
+  background: var(--cc-btn-bg);
+  color: var(--cc-text);
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.1s;
+
+  &:hover { background: var(--cc-btn-hover); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  &.claude-btn-primary {
+    background: var(--cc-accent);
+    color: var(--cc-accent-text);
+    border-color: var(--cc-accent);
+    font-weight: 600;
+    &:hover { filter: brightness(1.1); }
+    &:disabled { filter: none; }
+  }
+
+  &.claude-btn-icon {
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &.claude-btn-allow {
+    background: var(--cc-success-tint);
+    color: var(--cc-success);
+    border-color: var(--cc-success-border);
+    &:hover { background: var(--cc-success-tint2); }
+  }
+
+  &.claude-btn-deny {
+    background: var(--cc-error-tint);
+    color: var(--cc-error);
+    border-color: var(--cc-error-border);
+    &:hover { background: var(--cc-error-tint2); }
+  }
+}
+
+// ── Usage / account popover ──────────────────────────────────────────────────
+
+.cc-usage-btn {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.7;
+  &:hover { opacity: 1; }
+}
+
+.cc-usage-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 200;
+  min-width: 220px;
+  background: var(--cc-bg);
+  border: 1px solid var(--cc-border);
+  border-radius: @cc-radius;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  font-size: 12px;
+  color: var(--cc-text);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+
+  &.cc-usage-popover--visible {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Header row: dot · email · plan badge
+.cc-up-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--cc-border);
+  min-width: 0;
+}
+
+.cc-up-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--cc-subtle);
+  opacity: 0.4;
+
+  &.cc-up-dot--online {
+    background: var(--cc-success);
+    opacity: 1;
+  }
+}
+
+.cc-up-email {
+  font-weight: 600;
+  color: var(--cc-text-hi);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-up-plan {
+  font-size: 10px;
+  color: var(--cc-accent);
+  background: mix(@button-background-color-selected, @base-background-color, 15%);
+  border-radius: 8px;
+  padding: 1px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// Body: loading / error / bars
+.cc-up-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cc-up-loading,
+.cc-up-error {
+  font-size: 11px;
+  color: var(--cc-subtle);
+  text-align: center;
+  padding: 4px 0;
+}
+
+// Individual bar block
+.cc-up-bar-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cc-up-bar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.cc-up-bar-label {
+  font-size: 11px;
+  color: var(--cc-text);
+  font-weight: 500;
+}
+
+.cc-up-pct {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cc-text-hi);
+
+  &.cc-up-pct-warn   { color: var(--cc-warning); }
+  &.cc-up-pct-danger { color: var(--cc-error); }
+}
+
+.cc-up-track {
+  height: 6px;
+  background: var(--cc-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cc-up-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--cc-accent);
+  transition: width 0.3s ease;
+
+  &.cc-up-fill-warn   { background: var(--cc-warning); }
+  &.cc-up-fill-danger { background: var(--cc-error); }
+}
+
+.cc-up-reset-label {
+  font-size: 10px;
+  color: var(--cc-subtle);
+  opacity: 0.8;
+}
