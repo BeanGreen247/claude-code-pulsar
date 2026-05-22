@@ -160,6 +160,31 @@
   align-items: center;
 }
 
+// CLI / API mode badge in the title row
+.cc-mode-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 1px 5px;
+  border-radius: 8px;
+  vertical-align: middle;
+  line-height: 1.6;
+  cursor: default;
+
+  &.cc-mode-badge--cli {
+    background: mix(@background-color-success, @base-background-color, 20%);
+    color: var(--cc-success);
+    border: 1px solid var(--cc-success);
+  }
+
+  &.cc-mode-badge--api {
+    background: var(--cc-warning-tint);
+    color: var(--cc-warning);
+    border: 1px solid var(--cc-warning-border);
+  }
+}
+
 // ── Mode bar ─────────────────────────────────────────────────────────────────
 
 .claude-code-modebar {
@@ -212,6 +237,8 @@
   overflow-y: auto;
   min-height: 0;
   padding: 8px 0;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .claude-code-messages {
@@ -276,8 +303,14 @@
 .claude-msg-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: 4px;
+}
+
+.claude-msg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .claude-msg-role {
@@ -296,6 +329,24 @@
   font-size: 10px;
   color: var(--cc-subtle);
   opacity: 0.6;
+}
+
+.cc-copy-msg-btn {
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--cc-border);
+  background: none;
+  color: var(--cc-subtle);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.1s, background 0.1s;
+
+  &:hover { background: var(--cc-hl); color: var(--cc-text); }
+}
+
+.claude-msg:hover .cc-copy-msg-btn {
+  opacity: 1;
 }
 
 .claude-msg-user {
@@ -321,6 +372,31 @@
   &.claude-msg-system-error {
     color: var(--cc-error);
     border-left-color: var(--cc-error);
+  }
+
+  &.claude-msg-system-status {
+    color: var(--cc-warning);
+    border-left-color: var(--cc-warning);
+  }
+}
+
+// API mode notice shown at the top of the messages area
+.cc-api-notice {
+  margin: 6px 4px 2px;
+  padding: 8px 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--cc-warning);
+  background: var(--cc-warning-tint);
+  border: 1px solid var(--cc-warning-border);
+  border-radius: @cc-radius;
+
+  strong { font-weight: 700; }
+
+  .cc-api-notice-link {
+    color: var(--cc-info);
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 
@@ -815,6 +891,24 @@ textarea.claude-code-input-editor {
 .cc-send-bar {
   border-top: 1px solid var(--cc-border);
   background: var(--cc-bg);
+  position: relative;
+}
+
+.cc-stop-btn {
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  border: none;
+  background: var(--cc-error);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.85; }
+  &:active { opacity: 0.65; }
 }
 
 .cc-send-btn {
@@ -895,6 +989,9 @@ textarea.claude-code-input-editor {
     font-size: 14px;
     font-weight: 700;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &.claude-btn-allow {

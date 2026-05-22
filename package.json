@@ -86,6 +86,12 @@
       ],
       "description": "Panel color theme (auto follows Pulsar's UI theme, dark/light match Pulsar's One Dark / One Light defaults)",
       "order": 6
+    },
+    "apiKey": {
+      "type": "string",
+      "default": "",
+      "description": "Anthropic API key (sk-ant-…) — used automatically when the claude CLI is not installed. Leave blank to read from the ANTHROPIC_API_KEY environment variable instead. Tip: installing the claude CLI and logging in is faster and enables file editing.",
+      "order": 7
     }
   }
 }
