@@ -1,4 +1,9 @@
 // Claude Code for Pulsar — embedded xterm panel
+//
+// Backgrounds use var(--cc-bg, #1e1e1e) — no Less theme variables.
+// JS detects the correct color and writes --cc-bg to atom-workspace;
+// CSS custom properties inherit to all descendants automatically.
+// The #1e1e1e fallback prevents any white flash before JS fires.
 
 // ── Tab icon ──────────────────────────────────────────────────────────────────
 
@@ -21,32 +26,27 @@
 }
 
 // ── Dock resize handle ────────────────────────────────────────────────────────
-// The 4px drag handle Pulsar draws between the dock and the editor gets a
-// background colour from the UI theme that can appear as a white line.
-// Match it to the syntax background so it blends into the terminal panel.
 
 atom-dock:has(.cc-term-wrap) .atom-dock-resize-handle {
-  background: @syntax-background-color !important;
+  background: var(--cc-bg, #1e1e1e) !important;
   border: none !important;
 }
 
 // ── Pulsar pane/dock wrapper suppression ─────────────────────────────────────
-// Pulsar's pane system wraps every pane item in containers that have their
-// own backgrounds and borders (@pane-item-background-color defaults to #fff).
-// Suppress all of that for the pane that holds our terminal so no white
-// bleeds through around the xterm canvas.
 
+atom-dock:has(.cc-term-wrap),
+.atom-dock-inner:has(.cc-term-wrap),
 atom-pane:has(.cc-term-wrap),
 atom-pane-container:has(.cc-term-wrap),
 atom-pane-axis:has(.cc-term-wrap),
 .item-views:has(.cc-term-wrap) {
-  background: @syntax-background-color !important;
+  background: var(--cc-bg, #1e1e1e) !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
 
 .pane-item:has(.cc-term-wrap) {
-  background-color: @syntax-background-color !important;
+  background-color: var(--cc-bg, #1e1e1e) !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -60,9 +60,7 @@ atom-pane-axis:has(.cc-term-wrap),
   height: 100%;
   min-height: 0;
   min-width: 0;
-  // This colour is also read by _editorBg() in JS so xterm's canvas
-  // background exactly matches — preventing thin edge lines.
-  background: @syntax-background-color;
+  background: var(--cc-bg, #1e1e1e);
   opacity: 1 !important;
   border: none !important;
   outline: none !important;
@@ -75,9 +73,7 @@ atom-pane-axis:has(.cc-term-wrap),
   min-width: 0;
   overflow: hidden;
   position: relative;
-  // JS also sets background via inline style (exact match to xterm theme.background).
-  // This Less variable is only a CSS-layer fallback.
-  background: @syntax-background-color;
+  background: var(--cc-bg, #1e1e1e);
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -90,25 +86,19 @@ atom-pane-axis:has(.cc-term-wrap),
     box-shadow: none !important;
   }
 
-  // Viewport fills the full .xterm area behind the canvas layers.
-  // JS inline style sets the exact bg — this is a fallback so the colour
-  // is at least roughly right before JS fires.
   .xterm-viewport {
-    background-color: @syntax-background-color !important;
+    background-color: var(--cc-bg, #1e1e1e) !important;
     border: none !important;
-    // Hide the scrollbar track while keeping wheel-scroll functional.
     scrollbar-width: none !important;
     &::-webkit-scrollbar { display: none !important; }
   }
 
-  // Keep cursor canvas layer always opaque — Pulsar can zero-opacity it.
   .xterm-cursor-layer {
     opacity: 1 !important;
     z-index: 3;
   }
 }
 
-// Keep block cursor visible when the panel loses focus.
 .xterm:not(.focus) .xterm-cursor-layer .xterm-cursor {
   visibility: visible !important;
   opacity: 1 !important;
