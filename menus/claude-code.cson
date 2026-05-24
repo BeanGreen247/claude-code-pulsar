@@ -5,31 +5,11 @@
       {
         'label': 'Claude Code'
         'submenu': [
-          {'label': 'Open Panel', 'command': 'claude-code:open'}
-          {'label': 'Toggle Panel', 'command': 'claude-code:toggle'}
+          {'label': 'Open Claude', 'command': 'claude-code:open'}
+          {'label': 'Toggle Claude', 'command': 'claude-code:toggle'}
           {'label': 'New Chat', 'command': 'claude-code:new-chat'}
-          {'label': 'Open Latest Session', 'command': 'claude-code:open-latest'}
-          {'label': 'Session History', 'command': 'claude-code:history'}
-          {'type': 'separator'}
-          {'label': 'Check CLI', 'command': 'claude-code:check-cli'}
-          {'label': 'Update CLI', 'command': 'claude-code:update-cli'}
-          {'label': 'Settings', 'command': 'claude-code:settings'}
         ]
       }
     ]
   }
 ]
-
-'context-menu':
-  'atom-text-editor': [
-    {'label': 'Claude Code: Attach Selection', 'command': 'claude-code:attach-selection'}
-  ]
-  '.tree-view .file': [
-    {'label': 'Claude Code: Attach File', 'command': 'claude-code:attach-path'}
-  ]
-  '.tree-view .directory': [
-    {'label': 'Claude Code: Attach Folder', 'command': 'claude-code:attach-path'}
-  ]
-  '.claude-msg-text': [
-    {'label': 'Copy Message', 'command': 'core:copy'}
-  ]

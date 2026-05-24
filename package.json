@@ -1,8 +1,9 @@
 {
   "name": "claude-code",
-  "version": "26.05.22",
-  "description": "Claude Code integration for Pulsar editor",
+  "version": "26.05.23",
+  "description": "Claude Code terminal panel for Pulsar editor",
   "main": "./lib/main",
+  "author": "BeanGreen247",
   "license": "MIT",
   "repository": "https://github.com/BeanGreen247/claude-code-pulsar",
   "keywords": ["claude", "ai", "anthropic", "claude-code", "pulsar"],
@@ -16,26 +17,12 @@
     "atom-workspace": [
       "claude-code:open",
       "claude-code:toggle",
-      "claude-code:new-chat",
-      "claude-code:open-latest"
+      "claude-code:new-chat"
     ]
   },
-  "providedServices": {
-    "claude-code": {
-      "versions": {
-        "1.0.0": "provideClaudeCode"
-      }
-    }
-  },
-  "consumedServices": {
-    "tree-view": {
-      "versions": {
-        "0.1.0": "consumeTreeView"
-      }
-    }
-  },
   "dependencies": {
-    "marked": "^9.0.0"
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0"
   },
   "configSchema": {
     "cliPath": {
@@ -51,47 +38,33 @@
       "description": "Panel dock position",
       "order": 2
     },
-    "model": {
-      "type": "string",
-      "default": "",
-      "description": "Model override (leave empty for default, e.g. claude-opus-4-5)",
+    "protectSystemFiles": {
+      "type": "boolean",
+      "default": true,
+      "description": "Block file modifications in system directories (/etc, /usr, /bin, /lib, etc.) and sensitive home paths (~/.ssh, ~/.gnupg). Disable only if you explicitly need to edit system configuration.",
       "order": 3
     },
-    "permissionMode": {
+    "model": {
       "type": "string",
-      "default": "acceptEdits",
-      "enum": ["acceptEdits", "bypassPermissions", "default"],
-      "enumDescription": [
-        "Auto-accept file edits, ask for shell commands",
-        "Auto-accept everything (use with caution)",
-        "Deny all writes and shell commands (read-only)"
-      ],
-      "description": "Default permission mode for tool use",
+      "default": "claude-sonnet-4-6",
+      "description": "Model to use (e.g. claude-sonnet-4-6, claude-opus-4-7, claude-haiku-4-5). Leave blank to use the CLI default.",
       "order": 4
     },
-    "verbose": {
-      "type": "boolean",
-      "default": false,
-      "description": "Show verbose CLI output in the panel",
+    "maxTurns": {
+      "type": "integer",
+      "default": 25,
+      "minimum": 1,
+      "maximum": 200,
+      "description": "Maximum agentic turns per request. Lower values cap runaway loops and reduce token spend.",
       "order": 5
     },
-    "theme": {
-      "type": "string",
-      "default": "auto",
-      "enum": ["auto", "dark", "light"],
-      "enumDescriptions": [
-        "Inherit from Pulsar's active UI theme",
-        "Force One Dark colors",
-        "Force One Light colors"
-      ],
-      "description": "Panel color theme (auto follows Pulsar's UI theme, dark/light match Pulsar's One Dark / One Light defaults)",
+    "fontSize": {
+      "type": "integer",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 64,
+      "description": "Terminal font size in points. Set to 0 to follow the editor font size automatically.",
       "order": 6
-    },
-    "apiKey": {
-      "type": "string",
-      "default": "",
-      "description": "Anthropic API key (sk-ant-…) — used automatically when the claude CLI is not installed. Leave blank to read from the ANTHROPIC_API_KEY environment variable instead. Tip: installing the claude CLI and logging in is faster and enables file editing.",
-      "order": 7
     }
   }
 }
