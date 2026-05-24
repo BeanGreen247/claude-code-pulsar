@@ -7,11 +7,14 @@
 > The integration does work and there is no need to worry if it will keep on working, it is just stripped down.
 >
 > Video for reference https://youtu.be/131yAOjxHHQ?si=yYRr2lFikxu0P31j
+>
 > Other links:
+>
 > https://x.com/ClaudeDevs/status/2054610152817619388
 > https://x.com/ClaudeDevs/status/2054639777685934564
 > https://x.com/noahzweben/status/2054615670684619255
 > https://x.com/mattpocockuk/status/2040536403289764275
+> 
 > And to quote a fellow user who wants to see Claude improve : "I have never before experienced, from any developer tool, such a frustrating lack of clarity over the basic terms of usage."
 
 A [Claude Code](https://claude.ai/code) integration for the [Pulsar editor](https://pulsar-edit.dev/) — embeds a full Claude Code terminal directly in an editor panel.
