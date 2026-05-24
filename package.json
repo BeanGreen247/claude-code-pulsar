@@ -1,6 +1,6 @@
 {
   "name": "claude-code",
-  "version": "26.05.23",
+  "version": "26.05.24",
   "description": "Claude Code terminal panel for Pulsar editor",
   "main": "./lib/main",
   "author": "BeanGreen247",
