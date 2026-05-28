@@ -1,5 +1,7 @@
 # Claude Code for Pulsar
 
+> **Pulsar setup & performance tweaks:** see [tweaks.md](tweaks.md) for install commands, disabled packages, config.cson, init.js, and the Electron/Wayland launch wrapper.
+
 > [!WARNING]
 > **As for Anthropics latest controversy, there are severe penalties for developers.**
 > The main issue lies in pricing and understanding what Anthropic allows its users to do with their tool.
@@ -14,7 +16,7 @@
 > https://x.com/ClaudeDevs/status/2054639777685934564
 > https://x.com/noahzweben/status/2054615670684619255
 > https://x.com/mattpocockuk/status/2040536403289764275
-> 
+>
 > And to quote a fellow user who wants to see Claude improve : "I have never before experienced, from any developer tool, such a frustrating lack of clarity over the basic terms of usage."
 
 A [Claude Code](https://claude.ai/code) integration for the [Pulsar editor](https://pulsar-edit.dev/) — embeds a full Claude Code terminal directly in an editor panel.
@@ -142,9 +144,13 @@ git config --global core.hooksPath ~/.config/git/hooks
 
 ## Changelog
 
+### 28.05.24
+- addded tweaks.md file to give advice on how to get the most out of the Pulsar editor
+- Scrolling is still not fixed, seems to be a permanent issue, most likey an implementation issue
+
 ### 26.05.24
 - Fixed white borders appearing around the terminal panel
-- Fixed scrolling — wheel-scroll through history now works (xterm scrollback re-enabled; scrollbar remains hidden)
+- ~~Fixed scrolling — wheel-scroll through history now works (xterm scrollback re-enabled; scrollbar remains hidden)~~
 
 ---
 

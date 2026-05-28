@@ -50,14 +50,6 @@
       "description": "Model to use (e.g. claude-sonnet-4-6, claude-opus-4-7, claude-haiku-4-5). Leave blank to use the CLI default.",
       "order": 4
     },
-    "maxTurns": {
-      "type": "integer",
-      "default": 25,
-      "minimum": 1,
-      "maximum": 200,
-      "description": "Maximum agentic turns per request. Lower values cap runaway loops and reduce token spend.",
-      "order": 5
-    },
     "fontSize": {
       "type": "integer",
       "default": 0,
