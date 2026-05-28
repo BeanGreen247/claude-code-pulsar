@@ -144,13 +144,21 @@ git config --global core.hooksPath ~/.config/git/hooks
 
 ## Changelog
 
-### 28.05.24
-- addded tweaks.md file to give advice on how to get the most out of the Pulsar editor
-- Scrolling is still not fixed, seems to be a permanent issue, most likey an implementation issue
+### 28.05.26
+- Added tweaks.md file to give advice on how to get the most out of the Pulsar editor
+- Fixed: `--max-turns` flag removed — flag was dropped in Claude CLI v2.1.153
+- Fixed: augment PATH on launch so user-local bin dirs (e.g. `~/.local/bin`, `~/.npm-global/bin`) are found without needing an absolute CLI path in settings
+- Scrolling is still not fixed, seems to be a permanent issue, most likely an implementation issue
 
-### 26.05.24
-- Fixed white borders appearing around the terminal panel
+### 26.05.26
+- Rewrote chat UI: replaced custom chat panel with a full embedded xterm.js terminal (node-pty backend), giving access to the complete Claude Code TUI
+- Added MIT License
+- Fixed white borders appearing around the terminal panel (replaced Less theme variables with JS-driven CSS custom properties)
 - ~~Fixed scrolling — wheel-scroll through history now works (xterm scrollback re-enabled; scrollbar remains hidden)~~
+
+### 22.05.26
+- Initial release
+- Added ability to switch between API and local Claude to avoid API limits; active mode is shown via an indicator widget
 
 ---
 
