@@ -101,14 +101,18 @@ EOF
 
 ## 4. Write `~/.pulsar/init.js` — auto-reload on external file change
 
+> The claude-code package now does this itself (see `autoReloadEditedFiles`
+> in its settings) — this snippet is only needed if you want the same
+> behavior in Pulsar setups without that package installed.
+
 Pulsar silently reloads clean (unsaved) buffers already. This snippet also
-handles the conflict case: unsaved edits + external change → reverts to disk.
+handles the conflict case: unsaved edits + external change → reloads from disk.
 
 ```bash
 cat > ~/.pulsar/init.js << 'EOF'
 atom.workspace.observeTextEditors(function (editor) {
   editor.getBuffer().onDidConflict(function () {
-    editor.getBuffer().revert();
+    editor.getBuffer().reload();
   });
 });
 EOF

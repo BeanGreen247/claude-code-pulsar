@@ -44,6 +44,12 @@
       "description": "Block file modifications in system directories (/etc, /usr, /bin, /lib, etc.) and sensitive home paths (~/.ssh, ~/.gnupg). Disable only if you explicitly need to edit system configuration.",
       "order": 3
     },
+    "autoReloadEditedFiles": {
+      "type": "boolean",
+      "default": true,
+      "description": "When a file open in the editor changes on disk while it has unsaved edits (e.g. after Claude Code modifies it), automatically reload it from disk, discarding the unsaved edits. Files with no unsaved changes are always reloaded silently regardless of this setting.",
+      "order": 5
+    },
     "model": {
       "type": "string",
       "default": "claude-sonnet-4-6",
